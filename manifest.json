@@ -1,0 +1,8 @@
+{
+  "short_name": "Quote App",
+  "name": "React Random Quote Generator",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#272727",
+  "background_color": "#272727"
+}
