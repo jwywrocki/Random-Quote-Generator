@@ -1,6 +1,6 @@
 {
   "homepage": "http://jwywrocki.github.io/random-quote-generator",
-  "name": "task-3",
+  "name": "random-quote-generator",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
