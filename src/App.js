@@ -49,10 +49,10 @@ class App extends React.Component {
                     <h2 className="author">{author}</h2>
                     <div className="btn_wrapper">
                         <button className="button" onClick={this.prevQuote}>
-                            <span>Poprzedni</span>
+                            <span>Previous</span>
                         </button>
                         <button className="button" onClick={this.fetchQuote}>
-                            <span>Nowy cytat</span>
+                            <span>Next</span>
                         </button>
                     </div>
                 </div>
