@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
   "homepage": "http://jwywrocki.github.io/random-quote-generator",
-=======
-  "homepage": "https://jwywrocki.github.io/random-quote-generator/",
->>>>>>> da3f74efcec7dac7ff9bd899cfc49c58a37ff117
   "name": "random-quote-generator",
   "version": "0.1.0",
   "private": true,
