@@ -1,62 +1,63 @@
-import React from "react";
-import axios from "axios";
-
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-let count = 1;
+function App() {
+    const [quotes, setQuotes] = useState([{quote: '', author: '' }]);
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-class App extends React.Component {
-    state = { quote: '', author: '', rand:[]};
-    componentDidMount() {
-        console.log('COMPONENT DID MOUNT');
-        this.fetchQuote();
-    }
-    prevQuote = () => {
-        axios.get('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
-        .then((response) => {
-            console.log('prev_quote_id: ',this.state.rand);
-            const { quote, author } = response.data[this.state.rand[count++]];
-            this.setState({ quote, author })
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
-    fetchQuote = () => {
-        axios.get('https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json')
-        .then((response) => {
-            const rand = Math.floor((Math.random()*response.data.length));
-            const { quote, author } = response.data[rand];
-            this.setState({ quote, author })
-            this.setState(state => ({
-                rand: [rand, ...state.rand]
-              }));
-            count = 1;
-            console.log('quote_id: ',rand);
-            console.log(response.data[rand]);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-    }
+    const fetchQuote = async () => {
+        try {
+            const res = await fetch(
+            'https://gist.githubusercontent.com/natebass/b0a548425a73bdf8ea5c618149fe1fce/raw/f4231cd5961f026264bb6bb3a6c41671b044f1f4/quotes.json'
+            );
+            const data = await res.json();
+            const randomIndex = Math.floor(Math.random() * data.length);
+            const randomQuote = data[randomIndex];
+            
+            setQuotes([{ quote: randomQuote.quote, author: randomQuote.author }, ...quotes]);
+            setCurrentIndex(0);
+        }
+        catch(error) {
+            console.error(error);
+        }
+    };
 
-    render() {
-        const { quote, author } = this.state;
-        return (
-            <div className = "app">
-                <div className = "card">
-                    <h1 className="heading">{quote}</h1>
-                    <h2 className="author">{author}</h2>
-                    <div className="btn_wrapper">
-                        <button className="button" onClick={this.prevQuote}>
-                            <span>Previous</span>
-                        </button>
-                        <button className="button" onClick={this.fetchQuote}>
-                            <span>Next</span>
-                        </button>
-                    </div>
+    const displayPrevQuote = () => {
+        if (currentIndex < quotes.length - 2) {
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
+
+    const displayNextQuote = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+
+    useEffect(() => {
+        fetchQuote();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return (
+        <div className="app">
+            <div className="card">
+                <h1 className="heading">{quotes[currentIndex].quote}</h1>
+                <h2 className="author">{quotes[currentIndex].author}</h2>
+                <div className="btn_wrapper">
+                    <button className="button" onClick={displayPrevQuote}>
+                        <span>Previous</span>
+                    </button>
+                    <button className="button" onClick={fetchQuote}>
+                        <span>New</span>
+                    </button>
+                    <button className="button" onClick={displayNextQuote}>
+                        <span>Next</span>
+                    </button>
                 </div>
             </div>
-        );
-    }
-} export default App;
+        </div>
+    );
+}
+
+export default App;

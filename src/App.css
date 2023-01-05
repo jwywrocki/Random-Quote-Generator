@@ -3,7 +3,7 @@
     --dark: #05090c;
     --backgroundColor: #0b1218;
     --darkBackgroundColor: #090f14;
-    --primaryColor: #00efff;
+    --primaryColor: 0, 240, 255;
     --contentPadding: 1rem min(5vw, 10rem);
     --contentHorizontalMargin: 0 min(10vw, 10rem);
     --contentVerticalPadding: min(10vw, 10rem) 0;
@@ -16,7 +16,7 @@
     box-sizing: border-box;
 }
 html {
-    font-size: clamp(0.7rem, 3vw, 1.5rem);
+    font-size: clamp(0.7rem, 3vw, 1.2rem);
 }
 .root,
 html,
@@ -37,14 +37,16 @@ body {
 .card {
     background-color: var(--backgroundColor);
     width: 50vw;
-    min-height: 50vh;
+    min-height: 30vh;
+    max-width: 40rem;
     padding: 1.2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    color: var(--primaryColor);
-    border: 2px solid var(--primaryColor);
+    color: rgba(var(--primaryColor), 1);
+    border: 2px solid rgba(var(--primaryColor), 1);
+    border-radius: 10px;
     gap: 1rem;
 }
 .heading {
@@ -67,18 +69,18 @@ body {
     background-color: var(--backgroundColor);
     min-width: 9rem;
     padding: 1.2rem;
-    border: 1px solid var(--primaryColor);
+    border: 1px solid rgba(var(--primaryColor), 1);
+    border-radius: 5px;
     text-decoration: none;
     font-family: "Spartan", sans-serif;
-    color: var(--primaryColor);
+    color: rgba(var(--primaryColor), 1);
     font-size: 1.2rem;
     text-align: center;
     transition: all 0.4s;
     cursor: pointer;
 }
 .button:hover {
-    color: var(--dark);
-    background-color: var(--primaryColor);
+    background-color: rgba(var(--primaryColor), 0.3);
 }
 @media (max-width: 1000px) {
     .card {
